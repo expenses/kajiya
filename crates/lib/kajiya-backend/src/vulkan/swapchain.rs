@@ -109,6 +109,8 @@ impl Swapchain {
             surface_capabilities.current_transform
         };
 
+        dbg!(desired_image_count, surface_capabilities);
+
         let swapchain_create_info = vk::SwapchainCreateInfoKHR::builder()
             .surface(surface.raw)
             .min_image_count(desired_image_count)
@@ -128,6 +130,9 @@ impl Swapchain {
         let swapchain = unsafe { fns.create_swapchain(&swapchain_create_info, None) }.unwrap();
 
         let vk_images = unsafe { fns.get_swapchain_images(swapchain) }.unwrap();
+
+        assert_eq!(vk_images.len(), desired_image_count as usize);
+
         /*let image_views = images
         .iter()
         .map(|image| unsafe {
@@ -239,9 +244,9 @@ impl Swapchain {
 
         match present_index {
             Ok(present_index) => {
-                assert_eq!(present_index, self.next_semaphore);
+                //assert_eq!(present_index, self.next_semaphore);
 
-                self.next_semaphore = (self.next_semaphore + 1) % self.images.len();
+                self.next_semaphore = (present_index + 1) % self.images.len();
                 Ok(SwapchainImage {
                     image: self.images[present_index].clone(),
                     image_index: present_index as u32,

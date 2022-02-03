@@ -17,7 +17,7 @@ pub fn blur_pyramid(rg: &mut RenderGraph, input: &rg::Handle<Image>) -> rg::Hand
 
     let mut output = rg.create(pyramid_desc);
 
-    SimpleRenderPass::new_compute_rust(rg.add_pass("_blur0"), "blur::blur_cs")
+    SimpleRenderPass::new_compute(rg.add_pass("_blur0"), "/shaders/blur.hlsl",)
         .read(input)
         .write_view(
             &mut output,
