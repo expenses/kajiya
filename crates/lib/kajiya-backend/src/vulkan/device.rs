@@ -318,9 +318,7 @@ impl Device {
                 assert!(descriptor_indexing.shader_uniform_texel_buffer_array_dynamic_indexing != 0);
                 assert!(descriptor_indexing.shader_storage_texel_buffer_array_dynamic_indexing != 0);
                 assert!(descriptor_indexing.shader_sampled_image_array_non_uniform_indexing != 0);
-                assert!(descriptor_indexing.shader_storage_image_array_non_uniform_indexing != 0);
                 assert!(descriptor_indexing.shader_uniform_texel_buffer_array_non_uniform_indexing != 0);
-                assert!(descriptor_indexing.shader_storage_texel_buffer_array_non_uniform_indexing != 0);
                 assert!(descriptor_indexing.descriptor_binding_sampled_image_update_after_bind != 0);
                 assert!(descriptor_indexing.descriptor_binding_update_unused_while_pending != 0);
                 assert!(descriptor_indexing.descriptor_binding_partially_bound != 0);
@@ -333,6 +331,9 @@ impl Device {
 
                 #[cfg(feature = "ray-tracing")]
                 {
+                    assert!(descriptor_indexing.shader_storage_image_array_non_uniform_indexing != 0);
+                    assert!(descriptor_indexing.shader_storage_texel_buffer_array_non_uniform_indexing != 0);
+
                     assert!(descriptor_indexing.shader_uniform_buffer_array_non_uniform_indexing != 0);
                     assert!(descriptor_indexing.shader_storage_buffer_array_non_uniform_indexing != 0);
 
